@@ -9,6 +9,6 @@ void kmain()
     char buffer[25] = "--- Welcome to MemoOS ---";
     fb_write(buffer, 26);
     serial_configure(SERIAL_COM1_BASE, 1);
-    serial_write(SERIAL_COM1_BASE, buffer, 26);
+    serial_write(SERIAL_COM1_BASE, buffer, 25);
     
 }
