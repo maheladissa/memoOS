@@ -34,6 +34,7 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
 #define FB_HIGH_BYTE_COMMAND    14
 #define FB_LOW_BYTE_COMMAND     15
 
+
 /** fb_move_cursor:
 *  Moves the cursor of the framebuffer to the given position
 *
@@ -51,7 +52,7 @@ int fb_write(char *buf, unsigned int len);
 
 
 int fb_write(char *buf, unsigned int len) {
-  unsigned int indexToBuffer = 0;
+  unsigned int indexToBuffer=0;
   while (indexToBuffer < len) {
     fb_write_cell(indexToBuffer, buf[indexToBuffer], FB_LIGHT_CYAN, FB_BLACK);
     fb_move_cursor(indexToBuffer);
