@@ -3,6 +3,7 @@
 #include "Segments/gdt.h"
 #include "Input_Output/keyboard.h"
 #include "Interupts/interrupt_handler.h"
+#include "multiboot.h"
 
 /* Function to initialize */
 void init() {
@@ -17,14 +18,31 @@ void init() {
  
 }
 
-void kmain()
+int kmain(unsigned int ebx)
 {
 
-    init();
-    //fb_write_cell(0, 'A', FB_LIGHT_CYAN, FB_BLACK);
-    fb_move_cursor(00);
-    //char buffer[25] = "--- Welcome to MemoOS ---";
-    //fb_write(buffer, 26);
-    //serial_write(SERIAL_COM1_BASE, buffer, 25);
+	init();
+	
+	
+  	multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
+  	multiboot_module_t* modules = (multiboot_module_t*) mbinfo->mods_addr; 
+  	unsigned int address_of_module = modules->mod_start;
+  	
+  	
+  	if((mbinfo->mods_count) == 1){
+  		char buffer[] = "Module loaded successfully!";
+  		serial_write(SERIAL_COM1_BASE,buffer,sizeof(buffer));
+  		
+  		typedef void (*call_module_t)(void);
+        	/* ... */
+        	call_module_t start_program = (call_module_t) address_of_module;
+        	start_program();
+        	/* we'll never get here, unless the module code returns */
+
+  	}else{
+  		char buffer[] = "Module Loading Error!";
+  		serial_write(SERIAL_COM1_BASE,buffer,sizeof(buffer));
+  	}
+  	return 0;
     
 }
