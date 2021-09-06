@@ -47,11 +47,11 @@ void init_paging() {
  	
 	page_directory = (page_directory_t*)kmalloc_a(sizeof(page_directory_t));
 
-	int i = 0;
+	unsigned int i = 0;
 	while (i < placement_address)
 	{
 		// Kernel code is readable but not writeable from userspace.
-		alloc_frame( get_page(i, 1, page_directory), 0, 0);
+		alloc_frame(get_page(i, 1, page_directory), 0, 0);
 		i += 0x1000;
 	}
 	 	

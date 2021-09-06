@@ -10,9 +10,9 @@ typedef          short s16int;
 typedef unsigned char  u8int;
 typedef          char  s8int;
 
-void memset(u8int *dest, u8int val, u32int len)
+void memset(u32int *dest, u8int val, u32int len)
 {
-    u8int *temp = (u8int *)dest;
+    u32int *temp = (u32int *)dest;
     for ( ; len != 0; len--) *temp++ = val;
 }
 
