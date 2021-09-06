@@ -46,15 +46,3 @@ enablePaging:
 	mov %ebp, %esp
 	pop %ebp
 	ret
-
-enable_paging:
-  ; enable 4MB paging
-  mov eax, cr4
-  or eax, 0x10
-  mov cr4, eax
-
-  ; enable paging (PG bit)
-  mov eax, cr0
-  or eax, 0x80000001  ; set PE (bit 0) and PG (bit 31)
-  mov cr0, eax
-  ret
