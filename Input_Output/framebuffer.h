@@ -54,7 +54,7 @@ int fb_write(char *buf, unsigned int len);
 int fb_write(char *buf, unsigned int len) {
   unsigned int indexToBuffer=0;
   while (indexToBuffer < len) {
-    fb_write_cell(indexToBuffer, buf[indexToBuffer], FB_LIGHT_CYAN, FB_BLACK);
+    fb_write_cell(indexToBuffer, buf[indexToBuffer], FB_BLACK, FB_DARK_GREY);
     fb_move_cursor(indexToBuffer);
     indexToBuffer++;
   }
