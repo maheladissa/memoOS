@@ -1,4 +1,3 @@
-
 ENTRY(loader)                /* the name of the entry label */
 
 SECTIONS {
@@ -32,6 +31,5 @@ SECTIONS {
     }
 
     KERNEL_PHYSICAL_END = . - 0xC0000000;
+    end = .; _end = .; __end = .;
 }
-
-kernel_end = .;

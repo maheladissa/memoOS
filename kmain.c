@@ -6,7 +6,6 @@
 #include "multiboot.h"
 #include "Paging/paging.h"
 
-
 /* Function to initialize */
 void init() {
   /* Initialize segment descriptor tables */
@@ -18,10 +17,8 @@ void init() {
   /* Initialize serial port */
   serial_configure(SERIAL_COM1_BASE, 1);
   
-  /* Initialize serial port */
-  init_paging();
-  
-  
+  /* Initialize paging */
+  initialise_paging();
  
 }
 
@@ -29,7 +26,11 @@ int kmain()
 {
 
 	init();
-	return 0;
-
+	
+	char buffer[]= "Frame Allocation Complete";
+	serial_write(SERIAL_COM1_BASE,buffer,sizeof(buffer));
+	fb_write(buffer,sizeof(buffer));
+  	
+  	return 0;
     
 }
