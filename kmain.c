@@ -5,6 +5,8 @@
 #include "Interupts/interrupt_handler.h"
 #include "multiboot.h"
 #include "Paging/paging.h"
+#include "usermode.h"
+#include "Interupts/hardware_intrupt_handler.h"
 
 /* Function to initialize */
 void init() {
@@ -27,9 +29,13 @@ int kmain()
 
 	init();
 	
-	char buffer[]= "Frame Allocation Complete";
-	serial_write(SERIAL_COM1_BASE,buffer,sizeof(buffer));
-	fb_write(buffer,sizeof(buffer));
+	disable_hardware_interrupts();
+
+  	// Switch to User mode
+   	switch_to_user_mode();
+
+
+
   	
   	return 0;
     
