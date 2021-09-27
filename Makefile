@@ -1,4 +1,4 @@
-    OBJECTS = loader.o kmain.o Input_Output/io.o Segments/gdt.o Interupts/interrupt_handler.o Interupts/idt.o Paging/enable_paging.o usermode.o
+    OBJECTS = loader.o kmain.o Input_Output/io.o Segments/gdt.o Interupts/interrupt_handler.o Interupts/idt.o Paging/enable_paging.o usermode.o interupts/hardware_intrupt_handler.o
     CC = gcc
     CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
              -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
