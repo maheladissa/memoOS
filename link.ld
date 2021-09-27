@@ -31,5 +31,4 @@ SECTIONS {
     }
 
     KERNEL_PHYSICAL_END = . - 0xC0000000;
-    end = .; _end = .; __end = .;
 }
