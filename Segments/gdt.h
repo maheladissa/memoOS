@@ -73,12 +73,14 @@ static void gdt_set_gate(int num, unsigned int base, unsigned int limit, unsigne
 
 void init_gdt() {
   gdt_ptr_t gdt_ptr;
-  gdt_ptr.limit = (sizeof(gdt_entry_t) * 3) - 1;
+  gdt_ptr.limit = (sizeof(gdt_entry_t) * 5) - 1;
   gdt_ptr.base = (unsigned int)&gdt_entries;
 
   gdt_set_gate(0, 0, 0, 0, 0);                // Null segment
   gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Kernel Code segment
   gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Kernel Data segment
+  gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User Code segment
+  gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User Data segment
 
   gdt_flush((unsigned int)&gdt_ptr);
 }

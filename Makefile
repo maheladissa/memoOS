@@ -1,7 +1,8 @@
-    OBJECTS = loader.o kmain.o Input_Output/io.o Segments/gdt.o Interupts/interrupt_handler.o Interupts/idt.o Paging/enable_paging.o
+    OBJECTS = loader.o kmain.o Input_Output/io.o Segments/gdt.o Interupts/interrupt_handler.o Interupts/idt.o Paging/enable_paging.o usermode.o Interupts/hardware_intrupt_handler.o start.o userprograme.c
     CC = gcc
     CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
              -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
+    CUSEFLAGS= -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs
     LDFLAGS = -T link.ld -melf_i386
     AS = nasm
     ASFLAGS = -f elf
@@ -11,8 +12,15 @@
     kernel.elf: $(OBJECTS)
 	ld $(LDFLAGS) $(OBJECTS) -o kernel.elf
 
-    os.iso: kernel.elf
+    userprograme.o: userprograme.c
+	$(GCC) $(CUSEFLAGS) $< -o $@	
+
+    userprograme.bin: userprograme.o start.o
+	$(LD) -T usermode_linker.ld -melf_i386 $^ -o $@
+
+    os.iso: kernel.elf userprograme.bin menu.lst
 	cp kernel.elf iso/boot/kernel.elf
+	cp userprograme.bin iso/modules
 	genisoimage -R                              \
                     -b boot/grub/stage2_eltorito    \
                     -no-emul-boot                   \

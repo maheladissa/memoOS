@@ -43,8 +43,8 @@ u32int kmalloc_ap(u32int sz, u32int *phys);
 u32int kmalloc(u32int sz);
 
 // end is defined in the linker script.
-extern u32int end;
-u32int placement_address = (u32int)&end;
+extern u32int KERNEL_PHYSICAL_END;
+u32int placement_address = (u32int)&KERNEL_PHYSICAL_END;
 
 u32int kmalloc_int(u32int sz, int align, u32int *phys)
 {
